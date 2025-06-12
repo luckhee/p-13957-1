@@ -1,0 +1,18 @@
+package com.back.global.initData;
+
+
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class BaseinitData {
+    @Bean
+    ApplicationRunner baseInitDataApplicationRunner() {
+
+        return args -> {
+            System.out.println("기본 데이터가 초기화 되었습니다.");
+        };
+    }
+
+}

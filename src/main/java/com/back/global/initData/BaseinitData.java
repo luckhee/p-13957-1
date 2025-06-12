@@ -19,12 +19,14 @@ public class BaseinitData {
     ApplicationRunner baseInitDataApplicationRunner() {
 
         return args -> {
+            if(postRepository.count() > 0) return;
+
+
+
+            postRepository.save(new Post("제목 1", "내용 1"));
+            postRepository.save(new Post("제목 2", "내용 2"));
+
             System.out.println("기본 데이터가 초기화 되었습니다.");
-
-            Post post = new Post();
-            post.setTitle("제목 1");
-
-            postRepository.save(post);
         };
     }
 

@@ -22,4 +22,9 @@ public class Post {
     private final String title; // varchar(255)
     @Column(columnDefinition = "TEXT")
     private final String content;
+
+    public Post() {
+        title = "";
+        content = "";
+    }
 }

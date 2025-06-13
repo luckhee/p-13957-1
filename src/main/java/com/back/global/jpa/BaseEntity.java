@@ -1,4 +1,4 @@
-package com.back.global;
+package com.back.global.jpa;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -13,15 +13,15 @@ import java.time.LocalDateTime;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
-@MappedSuperclass // 엔티티 부모 클래스에는 이걸 달아야하 ㄴ다.ㅣ
+@MappedSuperclass // 엔티티의 부모 클래스에는 이걸 달아야 한다.
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 public abstract class BaseEntity {
-    @Id // PK
-    @GeneratedValue(strategy = IDENTITY) // auto_increment
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     private int id;
     @CreatedDate
     private LocalDateTime createDate;
     @LastModifiedDate
-    private LocalDateTime  modifyDate;
+    private LocalDateTime modifyDate;
 }

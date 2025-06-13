@@ -1,6 +1,8 @@
 package com.back.global.initData;
 
-import com.back.domain.post.entity.Post;
+import com.back.domain.member.member.entity.Member;
+import com.back.domain.member.member.service.MemberService;
+import com.back.domain.post.post.entity.Post;
 import com.back.domain.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ public class BaseInitData {
     @Lazy
     private BaseInitData self;
     private final PostService postService;
+    private final MemberService memberService;
 
     @Bean
     ApplicationRunner baseInitDataApplicationRunner() {
@@ -27,19 +30,26 @@ public class BaseInitData {
             self.work2();
             self.work4();
 
+
             new Thread(() -> self.work3()).start(); // 별도의 Thread 를 사용한 이유 : work3 메서드에서 예외가 발생해도 스프링부트가 꺼지지 않도록
         };
     }
 
     @Transactional
     void work1() {
+        if(memberService.count() > 0) return;
+
+        Member member1 = memberService.join("System","1234","관리자1");
+        Member member2 = memberService.join("admin1","1234","관리자2");
+        Member member3 = memberService.join("user1","1234","유저1");
+        Member member4 = memberService.join("user2","1234","유저2");
+        Member member5 = memberService.join("user3","1234","유저3");
+
+
         if (postService.count() > 0) return;
 
-        Post post1 = postService.write("제목 1", "내용 1");
-        Post post2 = postService.write("제목 2", "내용 2");
-
-        System.out.println(post1.getId());
-        System.out.println(post2.getId());
+        Post post1 = postService.write(member3,"제목 1", "내용 1");
+        Post post2 = postService.write(member4,"제목 2", "내용 2");
 
         System.out.println("기본 데이터가 초기화되었습니다.");
     }

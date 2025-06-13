@@ -1,30 +1,27 @@
 package com.back.domain.post.entity;
 
 
+import com.back.global.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.EntityListeners;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import static jakarta.persistence.GenerationType.IDENTITY;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity // ㅇㅏ래 구조대로 DB 테이블을 만들어야 한다.
 @Getter
 @Setter
-@RequiredArgsConstructor
-public class Post {
-    @Id // PK
-    @GeneratedValue(strategy = IDENTITY) // auto_increment
-    private int id;
-    private final String title; // varchar(255)
+@NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
+public class Post extends BaseEntity {
+    private  String title; // varchar(255)
     @Column(columnDefinition = "TEXT")
-    private final String content;
+    private  String content;
 
-    public Post() {
-        title = "";
-        content = "";
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
     }
 }
